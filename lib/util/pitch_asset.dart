@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../models/scale.dart';
 import 'assets.dart';
 
@@ -99,8 +97,8 @@ String getPitchAsset(String name, {bool? trebleClef}) {
 }
 
 String getPitchName({String? scale, required String pitch}) {
-  final PossibleScales? _scale = ScaleInfo.parse(scale ?? "C Major").scale;
-  switch (_scale) {
+  final PossibleScales scale0 = ScaleInfo.parse(scale ?? "C Major").scale;
+  switch (scale0) {
     case PossibleScales.cMajor:
       //C Major
       break;

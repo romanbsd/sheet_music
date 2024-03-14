@@ -2,9 +2,9 @@ import '../models/scale.dart';
 import 'assets.dart';
 
 String getScaleAsset(String scale, {bool? trebleClef}) {
-  final PossibleScales? _scale = ScaleInfo.parse(scale).scale;
+  final PossibleScales scale0 = ScaleInfo.parse(scale).scale;
   if (trebleClef != null && trebleClef) {
-    switch (_scale) {
+    switch (scale0) {
       case PossibleScales.cMajor:
         return cmajor_treble_asset;
       case PossibleScales.gMajor:
@@ -37,7 +37,7 @@ String getScaleAsset(String scale, {bool? trebleClef}) {
         return cbmajor_treble_asset;
     }
   }
-  switch (_scale) {
+  switch (scale0) {
     case PossibleScales.cMajor:
       return cmajor_bass_asset;
     case PossibleScales.gMajor:
@@ -69,6 +69,4 @@ String getScaleAsset(String scale, {bool? trebleClef}) {
     case PossibleScales.cbMajor:
       return cbmajor_bass_asset;
   }
-  // Default: C Major
-  return cmajor_bass_asset;
 }

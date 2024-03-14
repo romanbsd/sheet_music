@@ -19,10 +19,10 @@ enum PossibleScales {
 }
 
 class ScaleInfo {
-  final PossibleScales? scale;
+  final PossibleScales scale;
   final String? name, pattern, note;
 
-  ScaleInfo({this.scale, this.name, this.pattern, this.note});
+  ScaleInfo({required this.scale, this.name, this.pattern, this.note});
 
   ScaleInfo.parse(String name)
       : scale = _getScale(name),
@@ -32,12 +32,12 @@ class ScaleInfo {
 
   static String _getNote(String name) {
     if (name.isEmpty) return "";
-    String _note = name;
-    _note = _note.replaceAll(" ", "");
-    _note = _note.toLowerCase().replaceAll("major", "");
-    _note = _note.toLowerCase().replaceAll("minor", "");
-    _note = _note.toUpperCase();
-    return _note.trim() + "4";
+    String note = name;
+    note = note.replaceAll(" ", "");
+    note = note.toLowerCase().replaceAll("major", "");
+    note = note.toLowerCase().replaceAll("minor", "");
+    note = note.toUpperCase();
+    return "${note.trim()}4";
   }
 
   static String _getPattern(String name) {
@@ -115,12 +115,12 @@ class ScaleInfo {
 }
 
 Pitch? getScaleRoot(String scaleName) {
-  final Pitch _root = Chord.parse(scaleName).root;
-  final String _newRoot =
-      _root.toString().replaceAllMapped(new RegExp(r'[0-9]'), (Match match) {
+  final Pitch root = Chord.parse(scaleName).root;
+  final String newRoot =
+      root.toString().replaceAllMapped(RegExp(r'[0-9]'), (Match match) {
     return '4'; // Default Octave
   }).trim();
-  final String scaleRoot = _newRoot.toString();
+  final String scaleRoot = newRoot.toString();
   try {
     return Pitch.parse(scaleRoot);
   } catch (e) {

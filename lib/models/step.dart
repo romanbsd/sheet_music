@@ -5,12 +5,9 @@ enum Step { DO, RE, MI, FA, SOL, LA, TI }
 Step updateStep(String scale, String pitch) {
   // print("Scale: $scale, Pitch: $pitch");
 
-  if (pitch == null) return Step.DO;
-  if (scale == null) return Step.DO;
+  final PossibleScales scale0 = ScaleInfo.parse(scale).scale;
 
-  final PossibleScales? _scale = ScaleInfo.parse(scale).scale;
-
-  switch (_scale) {
+  switch (scale0) {
     case PossibleScales.cMajor:
       //C Major
       if (pitch.contains("C")) {

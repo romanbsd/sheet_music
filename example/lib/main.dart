@@ -8,10 +8,12 @@ import 'package:sheet_music/util/scale_asset.dart';
 import 'package:sheet_music/util/scales.dart';
 
 void main() {
-  runApp(MaterialApp(home: SheetMusicExample()));
+  runApp(const MaterialApp(home: SheetMusicExample()));
 }
 
 class SheetMusicExample extends StatefulWidget {
+  const SheetMusicExample({super.key});
+
   @override
   SheetMusicExampleState createState() => SheetMusicExampleState();
 }
@@ -37,7 +39,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
                 child: ListView.builder(
                     itemCount: scalesMajor.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final String _currentScale =
+                      final String currentScale =
                           scalesMajor[index].toString();
                       return ListTile(
                         contentPadding: const EdgeInsets.all(5.0),
@@ -45,18 +47,18 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
                           height: 60.0,
                           width: 60.0,
                           child: Image.asset(
-                            getScaleAsset(_currentScale,
+                            getScaleAsset(currentScale,
                                 trebleClef: trebleClef),
                             package: sheetMusicPackageName,
                             fit: BoxFit.fitWidth,
                           ),
                         ),
                         title: Text(
-                          _currentScale,
+                          currentScale,
                         ),
                         subtitle: Text(scalesMinor[index].toString()),
                         onTap: () {
-                          Navigator.pop(context, _currentScale);
+                          Navigator.pop(context, currentScale);
                         },
                       );
                     })),
@@ -69,7 +71,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
   }
 
   void _pickPitch(BuildContext context) {
-    final List<String> _notesList = trebleClef ?? true
+    final List<String> notesList = trebleClef ?? true
         ? pitchesTreble.reversed.toList()
         : pitchesBass.reversed.toList();
     showModalBottomSheet<String>(
@@ -87,11 +89,11 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: ListView.builder(
-                    itemCount: _notesList.length,
+                    itemCount: notesList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final String _currentPitch = _notesList[index].toString();
-                      final String _pitchName =
-                          getPitchName(pitch: _currentPitch, scale: scale);
+                      final String currentPitch = notesList[index].toString();
+                      final String pitchName =
+                          getPitchName(pitch: currentPitch, scale: scale);
 
                       return ListTile(
                         contentPadding: const EdgeInsets.all(5.0),
@@ -99,17 +101,17 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
                           height: 60.0,
                           width: 60.0,
                           child: Image.asset(
-                            getPitchAsset(_pitchName, trebleClef: trebleClef),
+                            getPitchAsset(pitchName, trebleClef: trebleClef),
                             package: sheetMusicPackageName,
                             fit: BoxFit.fitHeight,
                           ),
                         ),
                         title: Text(
-                          _pitchName,
+                          pitchName,
                         ),
                         onTap: () {
-                          final Pitch _pitchInfo = Pitch.parse(_pitchName);
-                          Navigator.pop(context, _pitchInfo.toString());
+                          final Pitch pitchInfo = Pitch.parse(pitchName);
+                          Navigator.pop(context, pitchInfo.toString());
                         },
                       );
                     }),
@@ -125,7 +127,7 @@ class SheetMusicExampleState extends State<SheetMusicExample> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         elevation: 1.0,
         title: const Text('Sheet Music Example'),
